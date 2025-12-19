@@ -1,0 +1,104 @@
+TIER 10 GOD EVOLUTION ENGINE - PROPRIETARY LICENSE
+Version 1.0, December 6, 2025
+
+Copyright (c) 2025 Cruz Sanchez. All Rights Reserved.
+
+═══════════════════════════════════════════════════════════════════════
+
+TERMS AND CONDITIONS
+
+This software and associated documentation files (the "System") are the 
+proprietary and confidential property of Cruz Sanchez ("Owner").
+
+1. GRANT OF LICENSE
+
+   NO LICENSE is granted for use, copying, modification, distribution, or
+   any other purpose WITHOUT explicit written permission from the Owner.
+
+2. RESTRICTIONS
+
+   You may NOT:
+   
+   a) Use the System for any purpose (commercial or non-commercial)
+   b) Copy, reproduce, or duplicate the System
+   c) Modify, adapt, translate, or create derivative works
+   d) Distribute, sublicense, lease, rent, loan, or transfer the System
+   e) Reverse engineer, decompile, or disassemble the System
+   f) Remove or alter any copyright, trademark, or proprietary notices
+   g) Use the name "TIER 10" or "God Evolution Engine" in other products
+   h) Claim ownership or authorship of the System or its components
+
+3. OWNERSHIP
+
+   The System, including all intellectual property rights, algorithms,
+   architecture, methodology, and documentation, remains the exclusive
+   property of Cruz Sanchez.
+
+4. CONFIDENTIALITY
+
+   The System contains trade secrets and proprietary information.
+   Any access to the System implies acceptance of confidentiality
+   obligations.
+
+5. NO WARRANTY
+
+   THE SYSTEM IS PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND, EXPRESS
+   OR IMPLIED, INCLUDING BUT NOT LIMITED TO WARRANTIES OF MERCHANTABILITY,
+   FITNESS FOR A PARTICULAR PURPOSE, OR NON-INFRINGEMENT.
+
+6. LIMITATION OF LIABILITY
+
+   IN NO EVENT SHALL THE OWNER BE LIABLE FOR ANY CLAIM, DAMAGES, OR OTHER
+   LIABILITY ARISING FROM THE USE OR INABILITY TO USE THE SYSTEM.
+
+7. TERMINATION
+
+   Any unauthorized use automatically terminates all rights and may result
+   in legal action.
+
+8. LICENSING INQUIRIES
+
+   For inquiries regarding commercial licensing, collaborations, or
+   authorized use, contact:
+   
+   Cruz Sanchez
+   TIER 10 God Evolution Engine
+   Email: [Contact information to be added]
+
+9. GOVERNING LAW
+
+   This license shall be governed by and construed in accordance with
+   applicable international copyright and intellectual property laws.
+
+═══════════════════════════════════════════════════════════════════════
+
+THIRD-PARTY COMPONENTS
+
+The following open-source components are used under their respective
+licenses:
+
+- Python 3.10.11 (PSF License)
+- astor (BSD License)
+- SQLite (Public Domain)
+
+These components retain their original licenses. This proprietary license
+applies exclusively to the TIER 10 God Evolution Engine code and 
+methodology.
+
+═══════════════════════════════════════════════════════════════════════
+
+AUTHENTICITY VERIFICATION
+
+System:        TIER 10 God Evolution Engine
+Version:       1.0.0
+Release Date:  December 6, 2025
+Author:        Cruz Sanchez
+Status:        Production Certified (1699/1699 tests passed)
+
+═══════════════════════════════════════════════════════════════════════
+
+© 2025 Cruz Sanchez. All Rights Reserved.
+TIER 10 God Evolution Engine™ is a trademark of Cruz Sanchez.
+
+This license is valid as of December 6, 2025 and remains in effect until
+modified or superseded by the Owner.
