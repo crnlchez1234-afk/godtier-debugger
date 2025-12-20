@@ -1,16 +1,10 @@
 import time
 
-def slow_sum_squares(n: int) -> int:
+def slow_sum_squares(n: int) ->int:
     """
     Calculates the sum of squares up to n.
     """
-    print(f"Calculando suma de cuadrados para {n}...")
-    # Simulación de lentitud
-    time.sleep(0.1) 
-    res = 0
-    for i in range(n):
-        res += i * i
-    return res
+    return sum(i * i for i in range(n))
 
 def main():
     print("--- Programa Lento v2.0 ---")
