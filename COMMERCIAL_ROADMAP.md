@@ -23,20 +23,30 @@ Hacer que funcione en repositorios reales, no solo en scripts.
 ## 🤝 Fase 3: Experiencia de Desarrollador (The "DX" Update)
 Herramientas para que el humano confíe y controle a la máquina.
 
-- [ ] **Modo Interactivo (TUI):** Usar librerías como `Textual` o `Rich` para mostrar un dashboard en la terminal en lugar de texto plano.
-    - Ver el código original y el mutante lado a lado.
-    - Botones para Aceptar/Rechazar cambios.
-- [ ] **Reportes HTML/JSON:** Generar un reporte al final de la ejecución (`debug_report.html`) con gráficos de rendimiento y detalles de los errores corregidos.
-- [ ] **Integración con Git:** Opción para que Darwin cree una rama nueva (`git checkout -b darwin-optimizations`) y haga commit de los cambios en lugar de modificar el archivo en vivo.
+- [x] **Integración con Git (Senior Mode):**
+    - Inicialización automática de repos.
+    - Creación de ramas (`darwin/opt-...`).
+    - Commits automáticos.
+    - **Smart Commit Messages:** Implementado (análisis técnico con LLM).
+    - **Auto-Merge:** Implementado (Stress Test + Merge automático).
+- [x] **Dashboard de Auditoría:**
+    - Generación de reportes HTML (`AUDIT_REPORT.html`).
+    - Gráficos de ahorro de tiempo/costos.
+- [x] **Style Mimicry:**
+    - La IA adopta el estilo de código del usuario (indentación, tipos, docs).
 
 ## 🧠 Fase 4: Inteligencia Avanzada (The "AGI" Update)
 Mejorar la calidad de las soluciones.
 
+- [ ] **Soporte Multi-Lenguaje:**
+    - Arquitectura modular para soportar Node.js, Go, Rust.
+    - Implementación de `JSHandler` (Prototipo).
 - [ ] **Soporte Multi-Modelo:**
     - Configuración para usar OpenAI/Anthropic API si el usuario tiene una Key (para problemas difíciles).
     - Fallback automático: Si Phi-2 falla 3 veces, intentar con un modelo mayor si está disponible.
-- [ ] **RAG (Retrieval Augmented Generation):** Que la IA pueda leer documentación de las librerías que usa el usuario (ej. leer docs de `pandas` si el script usa pandas) para sugerir optimizaciones idiomáticas.
 
 ## 📦 Fase 5: Empaquetado y Distribución
+- [x] **Dockerización:**
+    - `Dockerfile` creado para despliegue aislado.
 - [ ] **Instalador One-Click:** `.exe` o `pip install neurosys-debugger` que configure el entorno Python y descargue los modelos automáticamente.
 - [ ] **VS Code Extension:** La meta final. Una extensión que haga todo esto desde la UI del editor.

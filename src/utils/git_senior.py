@@ -47,14 +47,15 @@ class GitSenior:
         self._run(["checkout", "-b", branch_name])
         return branch_name
 
-    def commit_changes(self, file_path: str, func_name: str, speedup: float) -> bool:
-        """Hace commit de los cambios."""
+    def commit_changes(self, file_path: str, message: str) -> bool:
+        """Hace commit de los cambios con un mensaje personalizado."""
         # Add
         self._run(["add", file_path])
         
         # Commit
-        msg = f"⚡ Darwin: Optimized '{func_name}' (🚀 {speedup:.2f}% Speedup)"
-        ok, out = self._run(["commit", "-m", msg])
+        # Usamos -m para el mensaje completo (git soporta multiline en -m o múltiples -m)
+        # Para seguridad, pasamos el mensaje como un solo argumento
+        ok, out = self._run(["commit", "-m", message])
         return ok
 
     def checkout_main(self):
@@ -63,3 +64,17 @@ class GitSenior:
         ok, _ = self._run(["checkout", "main"])
         if not ok:
             self._run(["checkout", "master"])
+            
+    def merge_branch(self, branch_name: str) -> bool:
+        """Fusiona una rama en la actual (usualmente main)."""
+        print(f"   🔀 Merging {branch_name} into current branch...")
+        ok, out = self._run(["merge", branch_name])
+        if ok:
+            print("   ✅ Merge successful.")
+            # Delete branch after merge
+            self._run(["branch", "-d", branch_name])
+            return True
+        else:
+            print(f"   ❌ Merge failed: {out}")
+            self._run(["merge", "--abort"])
+            return False

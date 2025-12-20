@@ -1,0 +1,66 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>NeuroSys AGI - Executive Audit</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background: #1a1a1a; color: #e0e0e0; padding: 20px; }
+        .card { background: #2d2d2d; padding: 20px; border-radius: 10px; margin-bottom: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.3); }
+        h1 { color: #00ff9d; }
+        .metric { font-size: 2em; font-weight: bold; }
+        .metric-label { color: #888; font-size: 0.9em; }
+        .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    </style>
+</head>
+<body>
+    <h1>🧬 NeuroSys AGI: Optimization Audit</h1>
+    
+    <div class="grid">
+        <div class="card">
+            <div class="metric-label">Total Optimizations</div>
+            <div class="metric">0</div>
+        </div>
+        <div class="card">
+            <div class="metric-label">Avg. Speedup Factor</div>
+            <div class="metric">0.0x</div>
+        </div>
+        <div class="card">
+            <div class="metric-label">Proj. Cloud Savings (Monthly)</div>
+            <div class="metric" style="color: #00ff9d;">$0.00</div>
+        </div>
+    </div>
+
+    <div class="card">
+        <canvas id="speedupChart"></canvas>
+    </div>
+
+    <script>
+        const data = [];
+        const ctx = document.getElementById('speedupChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: data.map(d => d.name),
+                datasets: [{
+                    label: 'Speedup Factor (x)',
+                    data: data.map(d => d.speedup),
+                    backgroundColor: '#00ff9d',
+                    borderColor: '#00cc7d',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: { beginAtZero: true, grid: { color: '#444' } },
+                    x: { grid: { display: false } }
+                },
+                plugins: {
+                    legend: { labels: { color: '#fff' } }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

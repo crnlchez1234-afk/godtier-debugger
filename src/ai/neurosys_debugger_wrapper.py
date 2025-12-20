@@ -242,10 +242,29 @@ class NeurosysDebuggerAI:
             full_output = self.tokenizer.decode(outputs[0], skip_special_tokens=True)
             
             if raw_mode:
-                # Intentamos devolver solo lo generado nuevo
-                # Una heurística simple es quitar el prompt del inicio
-                if full_output.startswith(prompt):
-                    return full_output[len(prompt):].strip()
+                # Normalize newlines
+                p_norm = prompt.replace('\r\n', '\n').strip()
+                o_norm = full_output.replace('\r\n', '\n').strip()
+                
+                if p_norm in o_norm:
+                    generated = o_norm.split(p_norm)[-1].strip()
+                    if not generated:
+                        return "Error: Model generated no text."
+                    return generated
+                
+                # Fallback: Try to match the end of the prompt
+                # Take the last 20 chars of the prompt
+                if len(p_norm) > 20:
+                    p_tail = p_norm[-20:]
+                    if p_tail in o_norm:
+                         generated = o_norm.split(p_tail)[-1].strip()
+                         if generated:
+                             return generated
+
+                # Fallback if exact match fails but lengths are close (generation failed)
+                if abs(len(full_output) - len(prompt)) < 20:
+                     return "Error: Model generated no text."
+
                 return full_output # Fallback
             else:
                 return full_output.split("Output:")[-1].strip()

@@ -128,10 +128,16 @@ class DarwinEvolver:
                     return original_code.replace("time.sleep", "# time.sleep optimized out\n    pass #")
                 return None
 
+            # --- STYLE LEARNING INJECTION ---
+            from src.ai.style_analyzer import StyleAnalyzer
+            style_prompt = StyleAnalyzer().get_style_prompt(original_code)
+            # --------------------------------
+
             # Prompt estilo "Completion" para Phi-2
             prompt = f"""{original_code}
 
 # Optimized version of the function above (faster, no sleeps).
+{style_prompt}
 # IMPORTANT: Return ONLY the function definition. NO usage examples. NO benchmarks.
 def"""
             
@@ -265,5 +271,43 @@ def"""
         except Exception as e:
             print(f"   ❌ Compilation Error: {e}")
             return None
-            print(f"   ❌ Compilation Error: {e}")
-            return None
+
+    def generate_commit_analysis(self, func_name: str, original_code: str, mutant_code: str, speedup: float) -> str:
+        """Generates a technical analysis for the git commit message."""
+        if not self.ai.llm_ready:
+            return f"⚡ Darwin: Optimized '{func_name}' (🚀 {speedup:.2f}% Speedup)\n\nAutomated optimization by Darwin Protocol."
+
+        prompt = f"""
+Analyze the following code optimization for function '{func_name}'.
+
+Original:
+{original_code}
+
+Optimized:
+{mutant_code}
+
+Speedup: {speedup:.2f}%
+
+Task: Generate a Git Commit Message.
+Format:
+Subject: <Subject Line>
+Body: <Technical Explanation>
+
+Commit Message:
+Subject:"""
+        try:
+            analysis = self.ai.consult_specialist(prompt, raw_mode=True)
+            # Clean up potential markdown code blocks if the LLM wraps the message
+            analysis = analysis.replace("```", "").strip()
+            
+            # If analysis is empty or error, fallback
+            if not analysis or "Error:" in analysis:
+                 return f"⚡ Darwin: Optimized '{func_name}' (🚀 {speedup:.2f}% Speedup)\n\nAutomated optimization."
+                 
+            # Re-attach "Subject:" if it was stripped or not generated
+            if not analysis.startswith("Subject:") and not analysis.startswith("feat"):
+                analysis = "Subject: " + analysis
+                
+            return analysis
+        except Exception:
+            return f"⚡ Darwin: Optimized '{func_name}' (🚀 {speedup:.2f}% Speedup)\n\nAutomated optimization."
