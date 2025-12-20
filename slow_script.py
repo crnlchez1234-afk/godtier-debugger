@@ -1,6 +1,9 @@
 import time
 
-def slow_sum_squares(n):
+def slow_sum_squares(n: int) -> int:
+    """
+    Calculates the sum of squares up to n.
+    """
     print(f"Calculando suma de cuadrados para {n}...")
     # Simulación de lentitud
     time.sleep(0.1) 
