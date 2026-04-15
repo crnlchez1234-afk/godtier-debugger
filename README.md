@@ -185,25 +185,3 @@ MIT License — Copyright 2025 Cruz Sanchez
 **GodTier Debugger** — Fix bugs before they fix you.
 
 </div>
-
----
-
-## 🤝 Contribuciones
-
-Las contribuciones son bienvenidas. Por favor:
-1. Fork el proyecto
-2. Crea una rama para tu feature (`git checkout -b feature/AmazingFeature`)
-3. Commit tus cambios (`git commit -m 'Add AmazingFeature'`)
-4. Push a la rama (`git push origin feature/AmazingFeature`)
-5. Abre un Pull Request
-
----
-
-## 📞 Contacto
-
-Para preguntas, sugerencias o reportar bugs, por favor abre un issue en GitHub.
-
----
-
-**Estado del Proyecto**: ✅ OPERATIONAL - God Tier Achieved  
-**Última Actualización**: Diciembre 2025
