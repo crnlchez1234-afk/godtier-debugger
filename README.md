@@ -140,6 +140,23 @@ Stress tests cover: real-world FastAPI bugs, multi-bug files, security exploits,
 
 No PyTorch. No transformers. No cloud APIs. Just fast, local debugging.
 
+## PRO Version
+
+Want AI-powered analysis instead of heuristics? **[Get GodTier Debugger PRO](https://crnlchez.gumroad.com/l/godtier-pro)** — $29 one-time purchase.
+
+| Feature | Free | PRO |
+|---------|:----:|:---:|
+| AST auto-debugging (8 error types) | Yes | Yes |
+| Darwin evolutionary optimization | Yes | Yes |
+| Lazarus self-healing runtime | Yes | Yes |
+| Security scanner | Yes | Yes |
+| **Aurora LLM** (local Qwen2.5-14B AI) | — | Yes |
+| **Live Dashboard** (WebSocket) | — | Yes |
+| **25 Stress Tests** suite | — | Yes |
+| **GPU-optimized config** | — | Yes |
+
+No subscriptions. No cloud fees. One payment, forever yours.
+
 ## Project Structure
 
 ```
