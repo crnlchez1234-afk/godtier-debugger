@@ -1,0 +1,138 @@
+# .gitignore para DEBUGGING_GODTIER
+
+# ====================================
+# 🐍 Python
+# ====================================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# ====================================
+# 🧪 Testing
+# ====================================
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+.nox/
+coverage.xml
+*.cover
+*.log
+
+# ====================================
+# 🔧 Entornos Virtuales
+# ====================================
+.venv/
+venv/
+ENV/
+env/
+.env
+.venv.*
+
+# ====================================
+# 💾 Bases de Datos
+# ====================================
+*.db
+*.sqlite
+*.sqlite3
+*.db-journal
+
+# ====================================
+# 📊 Logs y Outputs
+# ====================================
+logs/
+*.log
+outputs/
+*.out
+
+# ====================================
+# 🧠 Modelos y Cache
+# ====================================
+cache/
+models/*.pth
+models/*.ckpt
+models/*.pt
+checkpoints/
+*.pkl
+*.pickle
+
+# ====================================
+# 🔐 Configuración Sensible
+# ====================================
+.env
+.env.local
+.env.*.local
+config.local.py
+secrets.py
+*.secret
+*.key
+*.pem
+
+# ====================================
+# 🗂️ IDEs y Editores
+# ====================================
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# ====================================
+# 📦 Node (si hay JS/TS)
+# ====================================
+node_modules/
+package-lock.json
+yarn.lock
+
+# ====================================
+# 🔨 Build y Temporal
+# ====================================
+*.bak
+*.tmp
+*.temp
+.temp/
+temp/
+
+# ====================================
+# 📈 Datos y Resultados
+# ====================================
+data/*.csv
+data/*.json
+data/*.xml
+data/*.txt
+!data/README.md
+
+# ====================================
+# 🎯 Específicos del Proyecto
+# ====================================
+darwin_gene_memory.db
+audit_reports/
+benchmark_results/
+performance_logs/
+
+# ====================================
+# ✅ Mantener Directorios Vacíos
+# ====================================
+!.gitkeep

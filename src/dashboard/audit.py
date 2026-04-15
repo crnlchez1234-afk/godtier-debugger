@@ -15,97 +15,130 @@ class AuditDashboard:
         print(f"   📊 Dashboard generated: {output_file}")
 
     def _fetch_data(self):
-        if not Path(self.db_path).exists():
-            return []
+        data = {
+            'optimizations': [],
+            'upgrades': []
+        }
         
-        conn = sqlite3.connect(self.db_path)
-        cursor = conn.cursor()
-        # Asumiendo que la tabla se llama 'optimizations' o similar basada en evolver.py
-        # Si no existe, manejamos el error.
-        try:
-            cursor.execute("SELECT function_name, speedup_factor, timestamp FROM gene_memory")
-            rows = cursor.fetchall()
-        except sqlite3.OperationalError:
-            return []
-        finally:
-            conn.close()
+        # 1. Fetch Darwin Optimizations
+        if Path(self.db_path).exists():
+            try:
+                conn = sqlite3.connect(self.db_path)
+                cursor = conn.cursor()
+                cursor.execute("SELECT function_name, speedup_factor, timestamp FROM gene_memory")
+                rows = cursor.fetchall()
+                data['optimizations'] = [{"name": r[0], "speedup": r[1], "date": r[2]} for r in rows]
+                conn.close()
+            except sqlite3.OperationalError:
+                pass
+
+        # 2. Fetch Auto-Upgrades
+        log_path = Path("logs/code_upgrades.jsonl")
+        if log_path.exists():
+            with open(log_path, 'r', encoding='utf-8') as f:
+                for line in f:
+                    try:
+                        entry = json.loads(line)
+                        if entry.get('success'):
+                            data['upgrades'].append({
+                                'pattern': entry.get('pattern'),
+                                'action': entry.get('action'),
+                                'timestamp': entry.get('timestamp')
+                            })
+                    except json.JSONDecodeError:
+                        continue
             
-        return [{"name": r[0], "speedup": r[1], "date": r[2]} for r in rows]
+        return data
 
     def _build_html(self, data):
         # Calcular métricas
-        total_opts = len(data)
-        avg_speedup = sum(d['speedup'] for d in data) / total_opts if total_opts else 0
-        # Simulación de costos: Asumimos $0.00005 por ms de cómputo en nube (AWS Lambda pricing approx)
-        # Esto es ilustrativo para el manager.
-        estimated_savings_per_run = avg_speedup * 0.01 # Fake math for demo
+        optimizations = data.get('optimizations', [])
+        upgrades = data.get('upgrades', [])
         
-        json_data = json.dumps(data)
+        total_opts = len(optimizations)
+        total_upgrades = len(upgrades)
+        avg_speedup = sum(d['speedup'] for d in optimizations) / total_opts if total_opts else 0
+        
+        # Simulación de costos
+        estimated_savings_per_run = avg_speedup * 0.01 
         
         return f"""
 <!DOCTYPE html>
 <html>
 <head>
-    <title>NeuroSys AGI - Executive Audit</title>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>NeuroSys AGI - God Tier Dashboard</title>
+    <meta http-equiv="refresh" content="5">
     <style>
-        body {{ font-family: 'Segoe UI', sans-serif; background: #1a1a1a; color: #e0e0e0; padding: 20px; }}
-        .card {{ background: #2d2d2d; padding: 20px; border-radius: 10px; margin-bottom: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.3); }}
-        h1 {{ color: #00ff9d; }}
-        .metric {{ font-size: 2em; font-weight: bold; }}
-        .metric-label {{ color: #888; font-size: 0.9em; }}
-        .grid {{ display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }}
+        body {{ font-family: 'Segoe UI', sans-serif; background: #1a1a1a; color: #e0e0e0; margin: 0; padding: 20px; }}
+        .card {{ background: #2d2d2d; border-radius: 8px; padding: 20px; margin-bottom: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.3); }}
+        .metric {{ font-size: 2.5em; font-weight: bold; color: #4CAF50; }}
+        .metric-label {{ color: #888; font-size: 0.9em; text-transform: uppercase; letter-spacing: 1px; }}
+        h1 {{ color: #fff; border-bottom: 2px solid #4CAF50; padding-bottom: 10px; }}
+        h2 {{ color: #4CAF50; margin-top: 0; }}
+        table {{ width: 100%; border-collapse: collapse; margin-top: 10px; }}
+        th, td {{ text-align: left; padding: 12px; border-bottom: 1px solid #404040; }}
+        th {{ color: #888; }}
+        tr:hover {{ background: #333; }}
+        .badge {{ padding: 4px 8px; border-radius: 4px; font-size: 0.8em; font-weight: bold; }}
+        .badge-opt {{ background: #2196F3; color: white; }}
+        .badge-upg {{ background: #9C27B0; color: white; }}
     </style>
 </head>
 <body>
-    <h1>🧬 NeuroSys AGI: Optimization Audit</h1>
+    <h1>🔥 DEBUGGING GOD TIER - LIVE STATUS 🔥</h1>
     
-    <div class="grid">
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
         <div class="card">
-            <div class="metric-label">Total Optimizations</div>
             <div class="metric">{total_opts}</div>
+            <div class="metric-label">Darwin Evolutions</div>
         </div>
         <div class="card">
-            <div class="metric-label">Avg. Speedup Factor</div>
-            <div class="metric">{avg_speedup:.1f}x</div>
+            <div class="metric">{avg_speedup:.2f}x</div>
+            <div class="metric-label">Avg Speedup</div>
         </div>
         <div class="card">
-            <div class="metric-label">Proj. Cloud Savings (Monthly)</div>
-            <div class="metric" style="color: #00ff9d;">${estimated_savings_per_run * 10000:.2f}</div>
+            <div class="metric">{total_upgrades}</div>
+            <div class="metric-label">Auto-Upgrades Applied</div>
+        </div>
+        <div class="card">
+            <div class="metric">ACTIVE</div>
+            <div class="metric-label">System Status</div>
         </div>
     </div>
 
     <div class="card">
-        <canvas id="speedupChart"></canvas>
+        <h2>🧬 Recent Auto-Upgrades</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Timestamp</th>
+                    <th>Pattern</th>
+                    <th>Action</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {''.join(f'<tr><td>{u["timestamp"][:19]}</td><td><span class="badge badge-upg">{u["pattern"]}</span></td><td>{u["action"]}</td><td>✅ Applied</td></tr>' for u in upgrades[-10:])}
+            </tbody>
+        </table>
     </div>
 
-    <script>
-        const data = {json_data};
-        const ctx = document.getElementById('speedupChart').getContext('2d');
-        new Chart(ctx, {{
-            type: 'bar',
-            data: {{
-                labels: data.map(d => d.name),
-                datasets: [{{
-                    label: 'Speedup Factor (x)',
-                    data: data.map(d => d.speedup),
-                    backgroundColor: '#00ff9d',
-                    borderColor: '#00cc7d',
-                    borderWidth: 1
-                }}]
-            }},
-            options: {{
-                responsive: true,
-                scales: {{
-                    y: {{ beginAtZero: true, grid: {{ color: '#444' }} }},
-                    x: {{ grid: {{ display: false }} }}
-                }},
-                plugins: {{
-                    legend: {{ labels: {{ color: '#fff' }} }}
-                }}
-            }}
-        }});
-    </script>
+    <div class="card">
+        <h2>🚀 Evolution History</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Timestamp</th>
+                    <th>Function</th>
+                    <th>Speedup</th>
+                </tr>
+            </thead>
+            <tbody>
+                {''.join(f'<tr><td>{o["date"]}</td><td>{o["name"]}</td><td><span class="badge badge-opt">{o["speedup"]:.2f}x</span></td></tr>' for o in optimizations[-10:])}
+            </tbody>
+        </table>
+    </div>
 </body>
 </html>
 """
+

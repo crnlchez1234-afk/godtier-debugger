@@ -198,6 +198,60 @@ class AutoDebugger:
         logger.info(f"Depuración completada. Éxito: {success}, Correcciones: {len(corrections_applied)}")
         return result
 
+    def fix_syntax_error(
+        self,
+        code: str,
+        error: Exception,
+        context: Optional[Dict[str, Any]] = None
+    ) -> CorrectionResult:
+        """
+        Corrige un SyntaxError específico y devuelve un CorrectionResult compatible con main.py.
+
+        Args:
+            code: Código fuente original.
+            error: Excepción de sintaxis capturada (p.ej., SyntaxError).
+            context: Contexto opcional para ajustar la corrección (idioma, etc.).
+
+        Returns:
+            CorrectionResult con el código corregido y metadatos de la corrección.
+        """
+        logger.info("Aplicando fix_syntax_error sobre código detectado con SyntaxError")
+
+        ctx: Dict[str, Any] = context or {}
+        error_msg = str(error)
+
+        corrected_code = code
+        corrections_applied: List[str] = []
+        errors_found = [f"SyntaxError: {error_msg}"]
+
+        try:
+            corrected_code, correction_details = self._fix_syntax_errors(code, error_msg, ctx)
+
+            # Desglosar correcciones reportadas en lista legible
+            for item in correction_details.split(';'):
+                item = item.strip()
+                if item:
+                    corrections_applied.append(item)
+        except Exception as fix_exc:
+            logger.warning(f"Fallo al aplicar fix_syntax_error: {fix_exc}")
+            corrections_applied.append(f"Fix failed: {fix_exc}")
+
+        success = self._validate_code(corrected_code)
+
+        # Ajustar confianza en función del número de correcciones realizadas
+        confidence_score = 0.9 ** len(corrections_applied) if corrections_applied else 1.0
+
+        self._update_stats(errors_found, corrections_applied, success)
+
+        return CorrectionResult(
+            original_code=code,
+            corrected_code=corrected_code,
+            errors_found=errors_found,
+            corrections_applied=corrections_applied,
+            success=success,
+            confidence_score=confidence_score
+        )
+
     def _check_indentation(self, code: str, context: Dict) -> Tuple[bool, str]:
         """Verifica errores de indentación"""
         lines = code.split('\n')

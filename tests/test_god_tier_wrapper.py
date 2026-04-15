@@ -1,36 +1,34 @@
 import sys
 from pathlib import Path
 
-# Add project root to path
 project_root = Path(__file__).parent.parent
 sys.path.insert(0, str(project_root))
 
 from src.ai.neurosys_debugger_wrapper import NeurosysDebuggerAI
 
+
 def test_god_tier_wrapper():
-    print("⚡ PROBANDO WRAPPER GOD TIER (HÍBRIDO) ⚡")
-    print("=========================================\n")
-
+    """Test the NeurosysDebuggerAI symbolic analysis pipeline."""
     ai = NeurosysDebuggerAI()
-    
-    if not ai.llm_ready:
-        print("❌ El modelo especialista no cargó. Revisa los logs anteriores.")
-        return
 
-    print("\n🧠 Consultando al Especialista...")
-    code_snippet = """
-    def calculate_risk(data):
-        # Intentional delay
-        import time
-        time.sleep(5)
-        return data * 0.5
-    """
-    
-    query = "Analyze this code for performance issues but respect intentional delays."
-    response = ai.consult_specialist(query, code_snippet)
-    
-    print(f"\n🤖 Respuesta del Especialista:\n{response}")
-    print("\n✅ Prueba completada.")
+    assert ai.ready is True, "Symbolic core should initialize"
+    assert ai.llm_ready is False, "LLM should not be loaded"
 
-if __name__ == "__main__":
-    test_god_tier_wrapper()
+    # Test code analysis
+    code = """
+def process(x):
+    return x * 2
+"""
+    result = ai.analyze_code(code)
+    assert result["status"] == "success"
+    assert isinstance(result["facts_extracted"], int)
+
+    # Test error analysis
+    error_result = ai.analyze_error("ZeroDivisionError: division by zero", "x = 1/0")
+    assert error_result["status"] == "success"
+    assert "cero" in error_result["analysis"].lower() or "zero" in error_result["analysis"].lower()
+
+    # Test security check
+    dangerous = "password = 'admin123'"
+    sec_result = ai.analyze_code(dangerous)
+    assert len(sec_result.get("security_issues", [])) > 0

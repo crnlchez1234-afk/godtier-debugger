@@ -21,11 +21,17 @@ class DarwinEvolver:
         self.benchmarker = ArenaBenchmarker()
         self.memory = GeneMemory()
 
-    def evolve_function(self, func_name: str, func: Callable, test_args=(), test_kwargs={}, source_code_override: str = None) -> Tuple[Optional[Callable], Optional[str]]:
-        """
-        Intent to evolve a specific function.
-        Returns: (Best Function, Best Source Code)
-        """
+    def evolve_function(
+        self,
+        func_name: str,
+        func: Callable,
+        test_args=(),
+        test_kwargs={},
+        source_code_override: str = None,
+        iterations: int = 100,
+    ) -> Tuple[Optional[Callable], Optional[str]]:
+        """Attempt to evolve a specific function.
+        Returns (best_function, best_source_code)."""
         print(f"\n🧬 PROJECT DARWIN: Initiating Evolution for '{func_name}'")
         
         # 0. Resolve Source Code (Needed for Memory Lookup)
@@ -51,7 +57,7 @@ class DarwinEvolver:
 
         # 2. Baseline
         print("   📊 Establishing Baseline (Original)...")
-        baseline_stats = self.benchmarker.measure_performance(func, test_args, test_kwargs)
+        baseline_stats = self.benchmarker.measure_performance(func, test_args, test_kwargs, iterations=iterations)
         if not baseline_stats["valid"]:
             print(f"   ❌ Original function failed: {baseline_stats.get('error')}")
             return None, None
@@ -87,7 +93,7 @@ class DarwinEvolver:
 
         # 4. Battle Arena (Benchmark)
         print("   ⚔️  ENTERING THE ARENA...")
-        mutant_stats = self.benchmarker.measure_performance(mutant_func, test_args, test_kwargs)
+        mutant_stats = self.benchmarker.measure_performance(mutant_func, test_args, test_kwargs, iterations=iterations)
         
         if not mutant_stats["valid"]:
             print(f"   ❌ Mutant died in the arena: {mutant_stats.get('error')}")
@@ -311,3 +317,10 @@ Subject:"""
             return analysis
         except Exception:
             return f"⚡ Darwin: Optimized '{func_name}' (🚀 {speedup:.2f}% Speedup)\n\nAutomated optimization."
+
+    # Backward-compatible wrapper expected by existing tests
+    def evolve(self, func: Callable, test_args=(), test_kwargs=None, iterations: int = 100):
+        """Thin wrapper over evolve_function to keep legacy API alive."""
+        test_kwargs = test_kwargs or {}
+        func_obj, _ = self.evolve_function(func.__name__, func, test_args, test_kwargs, iterations=iterations)
+        return func_obj

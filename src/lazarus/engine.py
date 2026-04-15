@@ -19,12 +19,14 @@ if str(project_root) not in sys.path:
     sys.path.insert(0, str(project_root))
 
 from src.ai.neurosys_debugger_wrapper import NeurosysDebuggerAI
+from src.utils.code_upgrade_system import AutoCodeUpgradeSystem
 
 class LazarusEngine:
     def __init__(self):
         self.ai = NeurosysDebuggerAI()
         self.resurrection_count = 0
         self.max_resurrections = 3
+        self.upgrade_system = AutoCodeUpgradeSystem()
 
     def heal_and_retry(self, func: Callable, args, kwargs, exception: Exception) -> Any:
         """
@@ -37,6 +39,25 @@ class LazarusEngine:
         print(f"\n💀 LAZARUS PROTOCOL ACTIVATED 💀")
         print(f"   Error detectado: {type(exception).__name__}: {exception}")
         print(f"   Intentando resurrección ({self.resurrection_count}/{self.max_resurrections})...")
+        
+        # 0. Check for Auto-Upgrades first (Preventive Healing)
+        # If we have a known pattern for this error, apply it immediately
+        try:
+            error_type = type(exception).__name__
+            if error_type in ['AttributeError', 'TypeError', 'ValueError']:
+                print(f"   🔍 Buscando patrones de auto-mejora para {error_type}...")
+                # Trigger a targeted scan for this function's file
+                func_file = Path(inspect.getfile(func))
+                if func_file.exists():
+                    # We use the upgrade system to analyze just this file
+                    # This is a simplified integration - in a full version we'd pass the specific error context
+                    self.upgrade_system.code_base = func_file.parent
+                    summary = self.upgrade_system.auto_upgrade(dry_run=False)
+                    if summary['successful_upgrades'] > 0:
+                        print(f"   ✨ Auto-Upgrade aplicado preventivamente: {summary['successful_upgrades']} mejoras.")
+                        # We might need to reload the module here in a real scenario
+        except Exception as e:
+            print(f"   ⚠️ Falló el intento de auto-mejora preventiva: {e}")
 
         # 1. Obtener código fuente y contexto
         try:

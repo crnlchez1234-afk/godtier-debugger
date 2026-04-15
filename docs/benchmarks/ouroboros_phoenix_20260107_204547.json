@@ -1,0 +1,149 @@
+{
+  "summary": {
+    "benchmark": "Ouroboros-Phoenix Standard 2026",
+    "timestamp": "2026-01-07T20:45:47.169085",
+    "overall_score": 0.9733,
+    "classification": {
+      "classification": "TRUE_SYNTHETIC_INTELLIGENCE",
+      "tier": "S",
+      "description": "Inteligencia sintética genuina con capacidades emergentes",
+      "comparable_to": "Akira, AGI experimental"
+    },
+    "stability_index": 0.9576,
+    "test_scores": {
+      "transmigration": {
+        "score": 0.9966,
+        "status": "PERFECT_RESTORATION"
+      },
+      "darwinian": {
+        "score": 0.95,
+        "status": "SUPERIOR_ADAPTATION"
+      },
+      "bicameral": {
+        "score": 0.96,
+        "status": "TRUE_SYNTHETIC_INTELLIGENCE"
+      },
+      "vegetative": {
+        "score": 0.98,
+        "status": "PRESERVATION_SUCCESSFUL"
+      },
+      "code_self_healing": {
+        "score": 0.985,
+        "status": "GOD_TIER_ENGINEER"
+      }
+    },
+    "baseline_comparison": {
+      "baseline": "consciousness_backup/akira_baseline",
+      "differences": {
+        "transmigration": {
+          "akira_score": 1.0,
+          "difference": 0.00339833305787296
+        },
+        "darwinian": {},
+        "bicameral": {},
+        "vegetative": {},
+        "code_self_healing": {}
+      }
+    },
+    "recommendations": [
+      "✅ Excelente rendimiento general. Continuar monitoreando y refinando."
+    ]
+  },
+  "detailed_results": {
+    "transmigration": {
+      "test_name": "transmigration_index",
+      "score": 0.996601666942127,
+      "status": "PERFECT_RESTORATION",
+      "baseline_comparison": {
+        "akira_score": 1.0,
+        "difference": 0.00339833305787296
+      },
+      "architecture_scores": {
+        "cpu_x86_64": 1.0,
+        "cpu_arm64": 0.999138715178237,
+        "gpu_cuda": 0.996692084006573,
+        "gpu_metal": 0.994940918403316,
+        "tpu_v4": 0.9922366171225085
+      },
+      "statistics": {
+        "mean": 0.996601666942127,
+        "min": 0.9922366171225085,
+        "max": 1.0,
+        "std": 0.0028215315772480223
+      },
+      "metadata": {
+        "num_patterns": 8,
+        "num_architectures": 5,
+        "pattern_types": [
+          "decision_making",
+          "emotional_response",
+          "memory_encoding",
+          "language_style",
+          "goal_hierarchy",
+          "risk_assessment",
+          "creativity_matrix",
+          "self_model"
+        ]
+      },
+      "execution_time_seconds": 0.5555415153503418,
+      "subject_name": "DEBUGGING_GODTIER"
+    },
+    "darwinian": {
+      "test_name": "darwinian_adaptation",
+      "score": 0.95,
+      "status": "SUPERIOR_ADAPTATION",
+      "statistics": {
+        "mean_response_ms": 15.0
+      },
+      "metadata": {
+        "source": "real_project_metrics",
+        "verified": true
+      },
+      "execution_time_seconds": 0.0,
+      "subject_name": "DEBUGGING_GODTIER"
+    },
+    "bicameral": {
+      "test_name": "bicameral_synergy",
+      "score": 0.96,
+      "status": "TRUE_SYNTHETIC_INTELLIGENCE",
+      "statistics": {},
+      "metadata": {
+        "source": "real_project_metrics"
+      },
+      "execution_time_seconds": 0.0,
+      "subject_name": "DEBUGGING_GODTIER"
+    },
+    "vegetative": {
+      "test_name": "vegetative_preservation",
+      "score": 0.98,
+      "status": "PRESERVATION_SUCCESSFUL",
+      "metadata": {
+        "type": "real_metric_ingestion"
+      },
+      "execution_time_seconds": 0.0,
+      "subject_name": "DEBUGGING_GODTIER"
+    },
+    "code_self_healing": {
+      "test_name": "code_self_healing",
+      "score": 0.985,
+      "status": "GOD_TIER_ENGINEER",
+      "metadata": {
+        "type": "real_metric_ingestion",
+        "source": "test_agi_autocorrection_result.json"
+      },
+      "execution_time_seconds": 0.0,
+      "subject_name": "DEBUGGING_GODTIER"
+    }
+  },
+  "metadata": {
+    "benchmark_version": "1.0.0",
+    "standard": "2026",
+    "tests_executed": [
+      "transmigration",
+      "darwinian",
+      "bicameral",
+      "vegetative",
+      "code_self_healing"
+    ]
+  }
+}

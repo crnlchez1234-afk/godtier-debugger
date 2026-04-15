@@ -231,35 +231,6 @@ class GodTierRunner:
             print(f"\n❌ Fallo crítico en el Runner (incluso Lazarus no pudo contenerlo): {e}")
             traceback.print_exc() 
 
-        # 2. LAZARUS PROTOCOL (Inyección de Inmortalidad)
-        if enable_lazarus:
-            print("💀 Lazarus Protocol: Inyectando nanobots de resurrección...")
-            # Usamos final_code para incluir las evoluciones de Darwin si las hubo
-            final_code = self._inject_lazarus(final_code)
-
-        # 3. EJECUCIÓN
-        print("🚀 Ejecutando código aumentado...\n" + "="*40)
-        try:
-            # Crear un entorno global con las herramientas necesarias
-            global_env = {
-                '__file__': str(self.script_path),
-                '__name__': '__main__',
-                'lazarus_protect': lazarus_protect, # Inyectar decorador
-                'sys': sys,
-                'os': os
-            }
-            # Añadir directorio del script al path
-            sys.path.insert(0, str(self.script_path.parent))
-            
-            # Compilar con el nombre de archivo real para que inspect.getsource funcione
-            # y Lazarus pueda leer el código fuente original del disco.
-            compiled_code = compile(final_code, str(self.script_path), 'exec')
-            
-            exec(compiled_code, global_env)
-        except Exception as e:
-            print(f"\n❌ Fallo crítico en el Runner (incluso Lazarus no pudo contenerlo): {e}")
-            traceback.print_exc()
-
     def _inject_lazarus(self, source_code: str) -> str:
         """
         Usa AST para decorar automáticamente todas las funciones con @lazarus_protect

@@ -13,9 +13,17 @@ Author: NeuroSys AGI Development Team
 Version: 6.0-alpha
 """
 
-import torch
-import torch.nn as nn
-import torch.nn.functional as F
+try:
+    import torch
+    import torch.nn as nn
+    import torch.nn.functional as F
+except ImportError:
+    torch = None
+    nn = type('nn', (), {'Module': object, 'Embedding': lambda *a, **k: None,
+                          'GRU': lambda *a, **k: None, 'Sequential': lambda *a, **k: None,
+                          'Linear': lambda *a, **k: None, 'ReLU': lambda *a, **k: None})()
+    F = None
+
 import re
 from typing import Dict, List, Tuple, Optional, Any, Union
 import numpy as np
@@ -46,7 +54,7 @@ class KnowledgeNode:
     id: str
     type: str  # 'concept', 'entity', 'relation', 'rule'
     attributes: Dict[str, Any]
-    embeddings: Optional[torch.Tensor] = None
+    embeddings: Optional[Any] = None
 
 
 class SymbolicParser:
@@ -147,7 +155,15 @@ class SymbolicParser:
                 "operands": [self.parse_logical_expression(p) for p in parts]
             }
 
-        # 3. Check for Factual Statements
+        # 3. Check for Negation
+        negation_match = self.patterns['negation'].match(expr)
+        if negation_match:
+            return {
+                "type": "negation",
+                "target": self.parse_logical_expression(negation_match.group(1))
+            }
+
+        # 4. Check for Factual Statements
         if self._is_factual_statement(expr):
             return {
                 "type": "fact",

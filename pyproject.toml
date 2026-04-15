@@ -1,0 +1,55 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "godtier-debugger"
+version = "1.0.0"
+description = "AI-powered self-healing code debugger with evolutionary optimization"
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.9"
+authors = [
+    {name = "Cruz Sanchez", email = "cruz@maxwell-core.net"},
+]
+keywords = [
+    "debugger", "ai", "self-healing", "code-analysis",
+    "evolutionary-optimization", "ast", "linter", "auto-fix",
+    "python", "javascript", "security-scanner"
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Topic :: Software Development :: Debuggers",
+    "Topic :: Software Development :: Quality Assurance",
+    "Topic :: Software Development :: Testing",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "networkx>=3.0",
+    "astor>=0.8.1",
+]
+
+[project.optional-dependencies]
+full = ["numpy>=1.24", "aiohttp>=3.9"]
+dev = ["pytest>=8.0", "numpy>=1.24", "aiohttp>=3.9"]
+
+[project.urls]
+Homepage = "https://github.com/crnlchez1234-afk/godtier-debugger"
+Repository = "https://github.com/crnlchez1234-afk/godtier-debugger"
+Issues = "https://github.com/crnlchez1234-afk/godtier-debugger/issues"
+
+[project.scripts]
+godtier = "src.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["src*"]
+
+[tool.setuptools.package-data]
+"*" = ["*.json", "*.yaml"]
