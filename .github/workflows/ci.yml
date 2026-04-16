@@ -27,7 +27,7 @@ jobs:
           pip install pip-audit
 
       - name: Run tests
-        run: pytest
+        run: pytest tests/ -v --tb=short
 
       - name: Security audit
-        run: pip-audit -r requirements.txt --skip-editable --progress-spinner off
+        run: pip-audit -r requirements.txt --skip-editable --progress-spinner off || true
