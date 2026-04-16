@@ -214,8 +214,14 @@ def"""
             
         return final_code if final_code else None
 
-# Instancia global
-_engine = LazarusEngine()
+# Instancia global (lazy)
+_engine = None
+
+def _get_engine():
+    global _engine
+    if _engine is None:
+        _engine = LazarusEngine()
+    return _engine
 
 def lazarus_protect(func):
     """
@@ -227,5 +233,5 @@ def lazarus_protect(func):
             return func(*args, **kwargs)
         except Exception as e:
             # Invocar al motor de resurrección
-            return _engine.heal_and_retry(func, args, kwargs, e)
+            return _get_engine().heal_and_retry(func, args, kwargs, e)
     return wrapper

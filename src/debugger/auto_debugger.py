@@ -30,7 +30,7 @@ try:
         sys.path.insert(0, str(project_root))
     from src.ai.neurosymbolic_agi_core import SymbolicParser
     NEURO_SYMBOLIC_AVAILABLE = True
-except ImportError:
+except Exception:
     NEURO_SYMBOLIC_AVAILABLE = False
     logging.warning("NeuroSymbolic Core not found. Running in classic mode.")
 

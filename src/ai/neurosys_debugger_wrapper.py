@@ -66,7 +66,7 @@ class NeurosysDebuggerAI:
             from neurosymbolic_agi_core import SymbolicParser
             self.parser = SymbolicParser()
             self.ready = True
-        except ImportError as e:
+        except Exception as e:
             print(f"[WARN] NeurosysAGI Core no disponible: {e}")
             self.ready = False
 

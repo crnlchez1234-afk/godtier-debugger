@@ -1,0 +1,77 @@
+# INSTRUCCIONES PARA CREAR EL PRODUCTO EN GUMROAD
+# ================================================
+# Sigue estos pasos EXACTOS en gumroad.com
+
+## PASO 1: Ir a crear producto
+# 1. Abre: https://app.gumroad.com/products
+# 2. Click el botón "+ New Product"
+# 3. Selecciona "Digital product"
+
+## PASO 2: Nombre del producto
+# Escribe exactamente:
+#   GodTier Debugger PRO — AI Self-Healing Code Debugger
+
+## PASO 3: Precio
+# Escribe: $29
+
+## PASO 4: Sube el archivo ZIP
+# Haz click en "Add file" o "Upload file"
+# Sube este archivo de tu computadora:
+#   c:\Users\Cruz Sanchez\DEBUGGING\DEBUGGING_GODTIER\godtier-debugger-pro-v1.0.0.zip
+
+## PASO 5: Descripción del producto
+# Copia y pega TODO lo que está entre las líneas ===== abajo:
+
+# =============================================================
+# **GodTier Debugger PRO** — The AI-Powered Self-Healing Code Debugger
+#
+# The free version (pip install godtier-debugger) gives you fast
+# AST-based debugging. The PRO version adds AI-powered analysis
+# that understands your code like a senior developer.
+#
+# ### What's in PRO:
+#
+# **Aurora LLM Integration** — Local AI inference with Qwen2.5-14B.
+# Runs on your GPU (8GB+ VRAM). Zero cloud fees, zero API keys, 
+# zero monthly subscriptions. One payment, forever yours.
+#
+# **Live Dashboard** — Real-time monitoring via HTTP + WebSocket. 
+# Visual audit reports auto-generated as HTML. Track every 
+# debugging session, fix, and performance metric.
+#
+# **25 Stress Tests** — Real-world test suite covering FastAPI apps, 
+# multi-bug files, security exploits, and evolution scenarios. 
+# 92% pass rate. Use as your CI/CD validation baseline.
+#
+# **PRO Configuration** — Optimized settings for GPU-accelerated 
+# debugging. Auto-detects RTX 3060/3070/3080/4090. Tuned for 
+# maximum speed with minimal VRAM usage.
+#
+# ### Requirements:
+# - Python 3.10+
+# - NVIDIA GPU with 8GB+ VRAM (for Aurora LLM)
+# - pip install godtier-debugger (free base package)
+#
+# ### Quick Start:
+# 1. pip install godtier-debugger
+# 2. Unzip this PRO bundle
+# 3. python aurora_setup/install.py
+# 4. godtier analyze yourfile.py  (now AI-powered!)
+#
+# Built with ❤️ by Cruz Sanchez | Maxwell Energy Systems LLC
+# GitHub: https://github.com/crnlchez1234-afk/godtier-debugger
+# =============================================================
+
+## PASO 6: Cover image (opcional)
+# Si quieres, puedes saltar esto. Gumroad pone una imagen genérica.
+
+## PASO 7: Publicar
+# Click "Publish" o "Save and continue"
+# Cuando esté publicado, Gumroad te da un link como:
+#   https://tuusuario.gumroad.com/l/godtier-pro
+# Ese link es el que la gente usa para comprar.
+
+## PASO 8: Configurar pago (MUY IMPORTANTE)
+# Ve a: https://app.gumroad.com/settings/payments
+# Conecta con Stripe o PayPal para recibir dinero.
+# Sin esto, no puedes cobrar.

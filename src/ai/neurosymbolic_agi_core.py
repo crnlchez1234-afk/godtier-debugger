@@ -1,3 +1,4 @@
+from __future__ import annotations
 """
 Neuro-Symbolic Integration Module for NeuroSys AGI
 
