@@ -197,6 +197,80 @@ MIT License — Copyright 2025 Cruz Sanchez
 
 ---
 
+## Development History (April 2026)
+
+Full audit and rebuild session by Cruz Sanchez + GitHub Copilot.
+
+### What was done:
+
+**1. Full Project Audit & Cleanup**
+- Fixed IndentationError in source code
+- Removed orphaned/duplicate files
+- All 21 unit tests passing (pytest, 2.22s)
+- 25 real-world stress tests created (92% pass rate)
+
+**2. LLM Dependencies Removed**
+- Removed Phi-2 base model and DeepSeek adapter (had broken hardcoded `D:\` paths)
+- Rewrote `tier10_router.py` as pure Python stub (no torch dependency)
+- Made torch/transformers fully optional — core runs on pure Python
+- Kept Aurora LLM bridge as optional (zero cost, activates only if GPU present)
+
+**3. Aurora LLM Bridge (Optional)**
+- `neurosys_debugger_wrapper.py` v10.0 — 352 lines
+- Connects to Qwen2.5-14B + LoRA Aurora_V2 at `C:\EVIDENCIA_GENESIS_AURORA\`
+- Falls back to heuristic analysis if no GPU/model available
+- Fixed Windows pipe crash + prompt mismatch in aurora_llm_worker.py
+
+**4. GPU Virtual Environment**
+- Deleted old .venv (torch CPU-only), created fresh .venv
+- PyTorch 2.11.0+cu128 (CUDA 12.8), RTX 3060 12GB verified
+- HuggingFace stack: transformers 5.5.4, peft 0.19.0, accelerate 1.13.0, bitsandbytes 0.49.2
+
+**5. PyPI Publication**
+- Package: `godtier-debugger` v1.0.0
+- Live at: https://pypi.org/project/godtier-debugger/1.0.0/
+- Install: `pip install godtier-debugger`
+- CLI entry point: `godtier` command (scan/fix/analyze/safety/info)
+
+**6. GitHub Repository**
+- Repo: https://github.com/crnlchez1234-afk/godtier-debugger
+- CI/CD: GitHub Actions workflow (.github/workflows/ci.yml)
+- Fixed CI failures: lazy annotations (`from __future__ import annotations`), broadened exception handling, lazy Lazarus engine init
+
+**7. Gumroad PRO Version ($29)**
+- Product: https://crnlchez.gumroad.com/l/godtier-pro
+- PRO bundle includes: Aurora LLM setup, Live Dashboard, 25 Stress Tests, GPU config
+- ZIP: GodTierPRO.zip (17.4 KB)
+- Bank account connected for payouts (weekly, $100 minimum)
+
+### Key Files Modified:
+| File | Change |
+|------|--------|
+| `src/ai/neurosymbolic_agi_core.py` | Added `from __future__ import annotations` (fixes torch.Tensor on no-GPU) |
+| `src/ai/neurosys_debugger_wrapper.py` | v10.0 rewrite, Aurora bridge, broadened exception handling |
+| `src/ai/tier10_router.py` | Rewritten as pure Python stub (no torch) |
+| `src/debugger/auto_debugger.py` | `except ImportError` → `except Exception` |
+| `src/lazarus/engine.py` | Lazy engine init (`_get_engine()` instead of global `_engine`) |
+| `src/cli.py` | New CLI entry point (scan/fix/analyze/safety/info) |
+| `pyproject.toml` | New — package config for PyPI |
+| `pytest.ini` | Added norecursedirs for examples/ |
+| `.github/workflows/ci.yml` | Fixed for Ubuntu/no-GPU runner |
+| `README.md` | Marketing rewrite + PRO comparison table |
+| `pro_bundle/` | PRO bundle directory (aurora_setup, dashboard, stress_tests) |
+
+### Accounts & Credentials:
+- **GitHub**: crnlchez1234-afk / godtier-debugger
+- **PyPI**: DEBUGGING_GODTIER (2FA enabled, recovery codes saved locally)
+- **Gumroad**: cruz nelson Sanchez / crnlchez.gumroad.com
+
+### Environment:
+- Python 3.10.11, Windows, Lancaster CA
+- NVIDIA RTX 3060 12GB, CUDA 12.8, Driver 595.79
+- 22 solar panels, 2 batteries (100% solar-powered)
+- Maxwell Energy Systems LLC (CA)
+
+---
+
 <div align="center">
 
 **GodTier Debugger** — Fix bugs before they fix you.
